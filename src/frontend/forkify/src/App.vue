@@ -1,28 +1,22 @@
 <template>
     <div class="container">
-      <Nav />
-      <Recipe />
+      <Main />
     </div>
 </template>
 
 
 <script>
-// import Recipe from '../components/Recipe';
-import Recipe from './components/Recipe.vue';
-import Nav from './components/NavBar.vue';
+import Main from './view/Main.vue';
 
 export default{
   components:{
-    Recipe,
-    Nav
+    Main,
   }
 }
 </script>
 
 <style>
   body{
-    background-color: #b2ebf2;
-    /* #757575 grey darken-1 */
-
+    background-color: #424242;
   }
 </style>
