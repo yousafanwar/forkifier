@@ -110,8 +110,8 @@ export default{
         const result = await response.json();
         this.list = result.recipes;
         
-        console.log( result.recipes);
-        console.log( this.list);
+        // console.log( result.recipes);
+        // console.log( this.list);
       }catch(err){
         console.log(err);
       }
@@ -123,6 +123,7 @@ export default{
 
     },
     retrieveFromLocalStorage(){
+      // localStorage.clear();
       const retarray = JSON.parse(localStorage.getItem("favorite"));
       this.retrieveData = retarray;
       console.log(retarray);
