@@ -88,9 +88,9 @@ export default{
     return{
       logo: logo,
       input: '',
-      list: '',
       recipe_id: 0,
-      retrieveData: [],      
+      retrieveData: [],
+      list: '',      
     }
   },
   components:{
@@ -117,7 +117,7 @@ export default{
       }
     },
     getEmit(recipeId){
-      this.recipe_id = Number(recipeId);
+      this.recipe_id = recipeId;
       // RecipeDesc.getIndRecipe();
       this.$refs.recipeDesc.getIndRecipe(this.recipe_id);
 
@@ -128,6 +128,7 @@ export default{
       this.retrieveData = retarray;
       console.log(retarray);
       this.materializeCssInit()
+      // this.$refs.recipeDesc.getIndRecipe(this.recipe_id);
       
     },
     materializeCssInit(){

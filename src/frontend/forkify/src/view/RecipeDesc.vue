@@ -11,8 +11,7 @@
               <i class="material-icons" v-on:click="servings > 1 && servings--; updateNumericValues(servings)">remove_circle_outline</i>
         </div>
         <div class="col s6 right-align">
-            <i class="material-icons" v-on:click="addRemoveFav()" v-show="isFav">favorite</i>
-            <i class="material-icons" v-on:click="addRemoveFav()" v-show="!isFav">favorite_border</i>
+            <i class="material-icons" @click="addRemoveFav">{{isFav ? 'favorite' : 'favorite_border'}}</i>            
         </div>
 
 
@@ -38,7 +37,7 @@
     export default {
         data(){
             return{
-                    recipeDescription: [{
+                    recipeDescription: {
                     publisher: '',
                     ingredients: [],
                     source_url: '',
@@ -46,11 +45,15 @@
                     image_url: '',
                     publisher_url: '',
                     title: '',
-                }],
+                },
                 servings: 4,                
                 favArr: [],
-                isFav: false,
             }
+        },
+        computed:{
+            isFav(){
+                return this.favArr.some(ele => ele.recipe_id === this.recipeDescription.recipe_id);
+            }            
         },
         methods:{
             async getIndRecipe(recipeId){
@@ -58,7 +61,6 @@
                     const response = await fetch (`https://forkify-api.herokuapp.com/api/get?rId=${recipeId}`);
                     let result = await response.json();
                     this.recipeDescription = result.recipe;
-                    this.isFav = false;
                 }catch(err){
                     console.log(err)
                 }
@@ -117,27 +119,29 @@
 },
 
     addRemoveFav(){
-        if(this.favArr.length <= 0){
-            this.favArr.push(this.recipeDescription);
-            this.isFav = true;
-            console.log("The arr was empty before but now it has the following values: ", this.favArr);
-            // console.log("id ", this.recipeDescription.recipe_id);
+        let favArrString = null;
+        console.log(this.isFav);
+  
 
-        }else{
+        if(!this.isFav || this.favArr.length <= 0){
+            this.favArr.push(this.recipeDescription);
+            favArrString = JSON.stringify(this.favArr); // create a seperate function for it
+            localStorage.setItem("favorite", favArrString); // create a seperate function for it
+        }
+        else if(this.isFav){
+            favArrString = JSON.parse(localStorage.getItem("favorite"));              
+            this.favArr = favArrString;
             this.favArr.forEach((ele, index) => {
             if (ele.recipe_id === this.recipeDescription.recipe_id) {
                 this.favArr.splice(index, 1);
-                // this.favArr.push(this.recipeDescription);
-                console.log(`The recipe is already added at position ${index}`);
-                this.isFav = false;
-            }else{
-                this.favArr.push(this.recipeDescription);
-                this.isFav = true;
+                favArrString = JSON.stringify(this.favArr); // create a seperate function for it
+            localStorage.setItem("favorite", favArrString); // create a seperate function for it
             }
 });
 
-            console.log("Array already has the following values:", this.favArr);
-        }
+
+
+}
 
         // const favArrString = JSON.stringify(this.favArr);
         // localStorage.setItem("favorite", favArrString);
