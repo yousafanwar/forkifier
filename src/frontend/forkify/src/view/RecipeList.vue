@@ -46,8 +46,7 @@ export default{
                 page: 1,
 				pageCount: 5,
 				listIndex: 1,
-				totalRecords: 28,
-				endPage: 5,
+				totalRecords: 0,
                 
                 firstEle: 0,
                 lastEle: 6,      
@@ -75,19 +74,21 @@ export default{
 				} else {
 					return this.page - 1;
 				}
+
 			},
 			renderBtn() {
 				let btnList = [];
-				for (let i = this.startPage; i <= Math.min(this.totalPages, this.startPage + 3 - 1); i++) {
+				for (let i = this.startPage; i <= Math.min((this.totalPages -1), this.startPage + 3 - 1); i++) {
 					btnList.push({
 						name: i,
 						isDisabled: i === this.page
 					});
 				}
+
 				return btnList;
 			},
             totalPages(){
-                return Math.ceil(this.totalRecords / this.resultsPerPage);
+                return Math.ceil((this.totalRecords / this.resultsPerPage));
             }
         },
         methods:{
@@ -109,6 +110,7 @@ export default{
             displayResults(){
                 let vissibleArray = [];
 
+                this.totalRecords = this.arr.length;
                 if(this.lastEle < this.arr.length){
                     
                     vissibleArray = this.arr.slice(this.firstEle, this.lastEle);
@@ -117,7 +119,7 @@ export default{
                     // this.resultsPerPage += 3;
                 this.results = vissibleArray;
                 }else{
-                    this.currentPage = 1;
+                    this.Page = 1;
                     this.resultsPerPage = 6;
                 alert("End of array");
 }
