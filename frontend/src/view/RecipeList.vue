@@ -141,6 +141,7 @@ export default{
     }
     .list-items{
         height: 100px;
+        border-radius: 5mm;
         /* margin: 100%; */
     }
 </style>
