@@ -21,13 +21,13 @@
   <ul id="nav-mobile" class="right hide-on-med-and-down">
     <li><a href="sass.html">Sass</a></li>
     <li><a href="badges.html">Components</a></li>
-    <li class='dropdown-trigger' data-target='dropdown1'><a href="collapsible.html" class="material-icons" v-on:click.prevent="retrieveFromLocalStorage()">favorite_border</a></li>
+    <li class='dropdown-trigger custom-width' data-target='dropdown1'><a href="collapsible.html" class="material-icons" v-on:click.prevent="retrieveFromLocalStorage()">favorite_border</a></li>
  
-    <li class="divider" tabindex="-1"></li>
+    <!-- <li class="divider" tabindex="-1"></li> -->
 
 <ul id='dropdown1' class='dropdown-content'>
 <div v-for="recipe in retrieveData">
-<li><a href="#!" class="collection-item avatar list-items" v-on:click="renderFavItem(recipe.recipe_id)">
+<li><a href="#!" class="collection-item avatar" v-on:click="renderFavItem(recipe.recipe_id)">
     <img :src=recipe.image_url alt="" class="circle">
     <span class="title">{{ recipe.title }}</span>
     <p>{{ recipe.publisher }} </p>
@@ -42,7 +42,7 @@
 
 <div class="row">
 <div class="col s3 recipe-col-list">
-<RecipeList @emit="getEmit" v-if="list.length > 0" :arr="list"/>
+<RecipeList :key="list.length" @emit="getEmit" v-if="list.length > 0" :arr="list"/>
 </div>
 
 <div class="col s9 recipe-col-desc">
@@ -108,7 +108,10 @@ this.$refs.recipeDesc.getIndRecipe(id);
 materializeCssInit(){
 this.$nextTick(() => {
 const elems = document.querySelectorAll('.dropdown-trigger');
-const instances = M.Dropdown.init(elems);
+const options = {
+  constrainWidth: true,
+}
+const instances = M.Dropdown.init(elems, options);
 });
 }
 }
@@ -157,8 +160,7 @@ height: 800px;
 overflow-y: auto;
 background-color: #e0e0e0;
 }
-.recipeDropDown{
-width: 500px !important;
-}
-
+.custom-width.dropdown-content {
+        width: 100px; 
+    }
 </style>
