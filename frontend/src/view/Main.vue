@@ -14,8 +14,8 @@
           <input  id="search" type="search" required v-model="input">
           <label class="label-icon" for="search"><i class="material-icons" style="color:antiquewhite  ;">search</i></label>
         </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action" v-on:click.prevent="fetchRecipe()">Submit</button>
-      </form>
+        <button class="btnStyle" type="submit" name="action" v-on:click.prevent="fetchRecipe()">Search</button>
+      </form> 
       
   
   <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -140,15 +140,20 @@ align-items: center;
 .input-field{
 background-color: white;
 border-radius: 12px;
-margin-right: 10px;
+/* margin-right: 10px; */
+border-radius: 0 0 85px 25px;;
 
 }
+.input-field:active{
+  border-radius: 0 0 85px 25px;
+  background-color: red;
 
+}
 .searchBarAndButton button{
 width: 100px;
-height: 65px;
-border-radius: 5px;
-margin-left: 10px;
+height: 55px;
+border-radius: 55px 0 5px 5px;
+/* margin-left: 10px; */
 }
 .recipe-col-list{
 height: 800px;
@@ -163,4 +168,17 @@ background-color: #e0e0e0;
 .custom-width.dropdown-content {
         width: 100px; 
     }
+.btnStyle{
+ background-color: inherit;
+ color: black;
+ border: black solid; 
+}
+.btnStyle:hover{
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+.btnStyle:active  {
+  background-color: inherit;
+}
 </style>

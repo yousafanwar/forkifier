@@ -141,7 +141,13 @@ export default{
     }
     .list-items{
         height: 100px;
-        border-radius: 5mm;
+        border-radius: 12mm;
+        background-color: #bdbdbd;
+        color: black;
+        
         /* margin: 100%; */
+    }
+    .list-items:hover{
+        background-color: red;
     }
 </style>
