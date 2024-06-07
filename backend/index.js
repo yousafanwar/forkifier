@@ -1,11 +1,28 @@
 import express from 'express';
 import pool from './db.js';
 import bodyParser from 'body-parser'; 
+import cors from 'cors'; 
+import jwt from 'jsonwebtoken';
+
 
 const app = express();
 // const bodyParser = require('body-parser');
 
+app.use(cors());
 app.use(bodyParser.json());
+const privateKey = '4209211'
+
+
+app.post('/api/login', async function(req, res){
+    const {email, password} = req.body;
+    const dbRes = await pool.query(`select * from users where email = $1 and "password" = $2;`, [email, password]);
+    
+    jwt.sign(email, privateKey, function(err, token) {
+        res.send(token);
+      });
+    
+})
+
 
 app.get('/api/users', async function(req, res){
     const dbRes = await pool.query('select users.id, users.firstName, users.lastName, users.email, users.password, recipes.title as recipeTitle, ingredients.title as ingredient, ingredients.quantity from users full outer join recipes on users.id = recipes.user_id full outer join recipe_ingredients on recipe_ingredients.recipes_id = recipes.id full outer join ingredients on recipe_ingredients.ingredients_id = ingredients.id;');

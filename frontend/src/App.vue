@@ -1,25 +1,22 @@
 <template>
     <div class="container">
-      <Login />
-      <!-- <Main /> -->
+      <RouterView />
     </div>
 </template>
 
 
 <script>
-import Main from './view/Main.vue';
-import Login from './view/Login.vue';
+import {RouterView} from 'vue-router';
 
 export default{
-  components:{
-    Main,
-    Login,
-  }
+  // components:{
+  //   RouterView
+  // }
 }
 </script>
 
 <style>
-  body{
-    /* background-color: #424242; */
-  }
+  /* body{
+    background-color: #424242;
+  } */
 </style>

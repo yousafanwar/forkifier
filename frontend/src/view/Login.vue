@@ -1,29 +1,70 @@
 <template>
     <div class="row container1">
     <form class="col s12">
-
       <div class="row container2">
         <div class="input-field col s12">
-          <input id="email" type="email" class="validate">
+          <input id="email" type="email" class="validate" v-model="email">
           <label for="email">Email</label>
         </div>        
       </div>
       <div class="row container2">
         <div class="input-field col s12">
-          <input id="password" type="password" class="validate">
+          <input id="password" type="password" class="validate" v-model="password">
           <label for="password">Password</label>
         </div>
     </div>
     
     <div class="btnContainer">
-        <button class="btn1">Submit</button>
+        <button class="btn1" @click.prevent="authenticateUser()">Submit</button>
     </div>
 </form>
   </div>
+  
         
 </template>
 
-<script></script>
+<script>
+import router from '@/router';
+
+  export default{
+    data(){
+      return{
+        email: '',
+        password: '',        
+      }
+    },
+    methods:{
+      async authenticateUser (){
+        // debugger;
+        try{
+          const response = await fetch(`http://localhost:3000/api/login`, {
+            method: 'POST',
+            headers:{
+              'content-type': 'application/json',
+            },
+            body:JSON.stringify({
+              email: this.email,
+              password: this.password,
+            })
+          });
+          if(!response.ok){
+            throw new Error("An error has occured");
+          }else{
+            const result = await response.json();
+            console.log(result);
+            router.push('/');
+          }
+                    
+        }catch(error){
+          console.log(`Yo yo yo that\'s an ${error} yo`);
+        }
+      },
+      displayOnConsole(){
+        console.log(this.name, this.password);
+      }
+    }
+  }
+</script>
 
 <style>
     body{
@@ -35,17 +76,15 @@
         display: grid;
         margin-top: 15%;
         border-radius: 5px;
-        height: 45vh;
     }
     .container2{
         margin-top: 5%;
-        /* max-width: 85%; */
         padding: 0 25px 0 25px;
     }
     .btn1{
-        height: 8vh;
+        height: 55px;
         width: 35%;
-        /* text-align: center; */
+        text-align: center;
         background-color: hsl(0, 0%, 20%);
         color: white;
     }
