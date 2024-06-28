@@ -1,5 +1,5 @@
 <template>
-  <nav>
+<nav>
 <div class="nav-wrapper">
   <div>
 
@@ -16,11 +16,13 @@
         </div>
         <button class="btnStyle" type="submit" name="action" v-on:click.prevent="fetchRecipe()">Search</button>
       </form> 
-      
+      <h3>Welcome back <span id="userNameDisplay">{{ getUserData.firstName }}</span></h3>
+
   
   <ul id="nav-mobile" class="right hide-on-med-and-down">
-    <li><a href="sass.html">Sass</a></li>
-    <li><a href="badges.html">Components</a></li>
+    <!-- <li><a href="sass.html">Create Recipe </a></li> -->
+    <li><RouterLink to="/CreateRecipe">Create Recipe </RouterLink></li>
+    <li><a href="badges.html">My Recipes</a></li>
     <li class='dropdown-trigger custom-width' data-target='dropdown1'><a href="collapsible.html" class="material-icons" v-on:click.prevent="retrieveFromLocalStorage()">favorite_border</a></li>
  
     <!-- <li class="divider" tabindex="-1"></li> -->
@@ -40,6 +42,8 @@
 </div>
 </nav>
 
+
+
 <div class="row">
 <div class="col s3 recipe-col-list">
 <RecipeList :key="list.length" @emit="getEmit" v-if="list.length > 0" :arr="list"/>
@@ -57,6 +61,7 @@ import logo from '../assets/img/logo.png';
 import RecipeList from './RecipeList.vue';
 import RecipeDesc from './RecipeDesc.vue';
 import M from 'materialize-css';
+import { RouterLink } from 'vue-router';
 
 export default{
 data(){
@@ -66,11 +71,20 @@ input: '',
 recipe_id: 0,
 retrieveData: [],
 list: '',
+userName: ''
 }
 },
 components:{
 RecipeList,
 RecipeDesc
+},
+computed:{
+  getUserData(){
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    // this.userName = userInfo.firstName;
+    return userInfo;
+  }
+
 },
 mounted(){
 },
@@ -113,7 +127,7 @@ const options = {
 }
 const instances = M.Dropdown.init(elems, options);
 });
-}
+},
 }
 }
 </script>
@@ -141,18 +155,18 @@ align-items: center;
 background-color: white;
 border-radius: 12px;
 /* margin-right: 10px; */
-border-radius: 0 0 85px 25px;;
+/* border-radius: 0 0 85px 25px;; */
 
 }
 .input-field:active{
-  border-radius: 0 0 85px 25px;
+  /* border-radius: 0 0 85px 25px; */
   background-color: red;
 
 }
 .searchBarAndButton button{
 width: 100px;
 height: 55px;
-border-radius: 55px 0 5px 5px;
+/* border-radius: 55px 0 5px 5px; */
 /* margin-left: 10px; */
 }
 .recipe-col-list{
@@ -180,5 +194,16 @@ background-color: #e0e0e0;
 }
 .btnStyle:active  {
   background-color: inherit;
+}
+h3{
+  color: black;
+  font-size: 1.5rem
+}
+#userNameDisplay{
+  background-color: red;
+  color: yellow;
+  padding: 2px;
+  font-weight: bold
+
 }
 </style>

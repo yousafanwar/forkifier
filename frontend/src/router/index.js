@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 
 import Main from '../view/Main.vue'
 import Login from '../view/Login.vue'
+import CreateRecipe from '../view/CreateRecipe.vue';
 
 const routes = [
   { 
@@ -14,6 +15,11 @@ const routes = [
     name: 'login view',
     component: Login 
   },
+  {
+    path: '/CreateRecipe',
+    name: 'create new recipe',
+    component: CreateRecipe
+  }
 ]
 
 const router = createRouter({

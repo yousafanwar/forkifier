@@ -51,6 +51,7 @@ import router from '@/router';
             throw new Error("An error has occured");
           }else{
             const result = await response.json();
+            localStorage.setItem('userInfo', JSON.stringify(result));
             console.log(result);
             router.push('/');
           }
